@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/app.css" rel="stylesheet"/> 
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/mui.indexedlist.css" rel="stylesheet" />
+    <script src="js/mui.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/mui.indexedlist.js"></script>
+    <style>
+		html,
+		body {
+			height: 100%;
+			overflow: hidden;
+		}
+		.mui-bar {
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+	</style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav mui-headerExt">
+		<a id="icon-location" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 id="title" class="mui-title">通讯录</h1>
+	</header>
+	<div class="mui-content">
+		<div id='list' class="mui-indexed-list">
+			<div class="mui-indexed-list-search mui-input-row mui-search">
+				<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索联系人">
+			</div>
+			<div class="mui-indexed-list-bar">
+				<a>A</a>
+				<a>B</a>
+				<a>C</a>
+				<a>D</a>
+				<a>E</a>
+				<a>F</a>
+				<a>G</a>
+				<a>H</a>
+				<a>I</a>
+				<a>J</a>
+				<a>K</a>
+				<a>L</a>
+				<a>M</a>
+				<a>N</a>
+				<a>O</a>
+				<a>P</a>
+				<a>Q</a>
+				<a>R</a>
+				<a>S</a>
+				<a>T</a>
+				<a>U</a>
+				<a>V</a>
+				<a>W</a>
+				<a>X</a>
+				<a>Y</a>
+				<a>Z</a>
+			</div>
+			<div class="mui-indexed-list-alert"></div>
+			<div class="mui-indexed-list-inner">
+				<div class="mui-indexed-list-empty-alert">没有数据</div>
+				<ul class="mui-table-view">
+					<li data-group="T" class="mui-table-view-divider mui-indexed-list-group">T</li>					
+					<li class="mui-table-view-cell mui-media mui-indexed-list-item" data-value="temp1" data-tags="temp1">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../images/1.jpg">
+							<div class="mui-media-body">
+								temp1
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-indexed-list-item" data-value="temp2" data-tags="temp2">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../images/2.jpg">
+							<div class="mui-media-body">
+								temp2
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		mui.ready(function() {
+			var header = document.querySelector('header.mui-bar');
+			var list = document.getElementById('list');
+			//calc height
+			list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+			//create
+			window.indexedList = new mui.IndexedList(list);
+			
+			mui("ul.mui-table-view").on("tap", "li.mui-table-view-cell", function(){
+					var _name = this.querySelector("div.mui-media-body").innerHTML;
+					mui.openWindow({
+						id: "content",
+						url: "im-chat.html",
+						extras: {
+							name: _name
+						},
+						show: {
+							aniShow:'pop-in'//参考官方的效果
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+			})
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"im-chat.html",
+			"list.html",
+			"js/socket.js"
+		],
+		"refer": [
+			"im-chat.html",
+			"list.html"
+		]
+	},
+	"im-chat.html": {
+		"resources": [
+			"css/app.css",
+			"css/mui.imageviewer.css",
+			"css/mui.css",
+			"js/mui.imageViewer.js",
+			"js/arttmpl.js",
+			"index.html",
+			"images/logo.png",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/socket.js",
+			"js/im-chat.js"
+		],
+		"refer": [
+			"index.html"
+		]
+	},
+	"list.html": {
+		"resources": [
+			"css/app.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"index.html",
+			"css/mui.indexedlist.css",
+			"js/mui.indexedlist.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"index.html",
+			"im-chat.html"
+		]
+	}
+}
