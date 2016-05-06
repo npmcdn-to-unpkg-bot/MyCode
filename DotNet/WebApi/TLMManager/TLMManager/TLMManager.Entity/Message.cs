@@ -1,0 +1,57 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TLMManager.Entity
+{
+    [Table("Message")]
+    public class Message
+    {
+        [Key]
+        public Guid Id { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string FromUser { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ToUser { get; set; }
+
+        /// <summary>
+        /// 信息内容
+        /// </summary>
+        public string Content { get; set; }
+
+        /// <summary>
+        /// 信息添加时间
+        /// </summary>
+        public DateTime AddTime { get; set; }
+
+        /// <summary>
+        /// 是否已发送
+        /// </summary>
+        public bool Flag { get; set; } 
+    }
+
+    [NotMapped]
+    public class CurrentUser
+    {
+        /// <summary>
+        /// 工号
+        /// </summary>
+        public string Empo { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 连接编号
+        /// </summary>
+        public string ConnectionId { get; set; }
+    }
+    
+}

@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager", "TLMManager\TLMManager.csproj", "{B34361F2-A8AA-4BDD-895B-5BA6CD294C99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager.Tests", "TLMManager.Tests\TLMManager.Tests.csproj", "{E24C08BF-4970-40EB-AF8B-3272912E8F4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager.Core", "TLMManager.Core\TLMManager.Core.csproj", "{2A4FDF10-92A0-4565-83A9-347B0C357194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager.Service", "TLMManager.Service\TLMManager.Service.csproj", "{6B7450FD-ED14-4A28-9246-B4F715411C11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager.Entity", "TLMManager.Entity\TLMManager.Entity.csproj", "{D8BCDC39-4532-4CE1-961B-DC5038832981}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMManager.Utils", "TLMManager.Utils\TLMManager.Utils.csproj", "{25299997-87D1-4F58-B979-7D8157D91359}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B34361F2-A8AA-4BDD-895B-5BA6CD294C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34361F2-A8AA-4BDD-895B-5BA6CD294C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34361F2-A8AA-4BDD-895B-5BA6CD294C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34361F2-A8AA-4BDD-895B-5BA6CD294C99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E24C08BF-4970-40EB-AF8B-3272912E8F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E24C08BF-4970-40EB-AF8B-3272912E8F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E24C08BF-4970-40EB-AF8B-3272912E8F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E24C08BF-4970-40EB-AF8B-3272912E8F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A4FDF10-92A0-4565-83A9-347B0C357194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4FDF10-92A0-4565-83A9-347B0C357194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4FDF10-92A0-4565-83A9-347B0C357194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4FDF10-92A0-4565-83A9-347B0C357194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7450FD-ED14-4A28-9246-B4F715411C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7450FD-ED14-4A28-9246-B4F715411C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7450FD-ED14-4A28-9246-B4F715411C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7450FD-ED14-4A28-9246-B4F715411C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BCDC39-4532-4CE1-961B-DC5038832981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BCDC39-4532-4CE1-961B-DC5038832981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BCDC39-4532-4CE1-961B-DC5038832981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BCDC39-4532-4CE1-961B-DC5038832981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25299997-87D1-4F58-B979-7D8157D91359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25299997-87D1-4F58-B979-7D8157D91359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25299997-87D1-4F58-B979-7D8157D91359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25299997-87D1-4F58-B979-7D8157D91359}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
