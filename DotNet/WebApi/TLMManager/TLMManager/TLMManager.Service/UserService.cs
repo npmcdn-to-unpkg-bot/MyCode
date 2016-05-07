@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using TLMManager.Core;
+﻿using TLMManager.Core;
 using TLMManager.Service.Interface;
 
 namespace TLMManager.Service
 {
-    public class UserService : DBHelper, IUserService
+    public class UserService : DbHelper, IUserService
     {
 
     }

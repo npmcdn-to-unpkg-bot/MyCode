@@ -1,1 +1,17 @@
 Java/Test/
+/DotNet/SignalR/ConsoleSignalR/TLMService/packages
+/DotNet/SignalR/ConsoleSignalR/TLMService/TLMService/obj/Debug
+/DotNet/SignalR/ConsoleSignalR/TLMService/TLMService/bin/Debug
+/DotNet/WebApi/TLMManager/TLMManager/packages
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager/bin
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Core/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Core/bin/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Entity/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Entity/bin/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Service/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Service/bin/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Utils/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Utils/bin/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Tests/obj/Debug
+/DotNet/WebApi/TLMManager/TLMManager/TLMManager.Tests/bin/Debug

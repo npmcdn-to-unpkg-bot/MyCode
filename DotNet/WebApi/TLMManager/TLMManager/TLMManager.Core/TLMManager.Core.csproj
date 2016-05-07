@@ -54,10 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBHelper.cs" />
-    <Compile Include="DBfactory.cs" />
-    <Compile Include="DBHelperInject.cs" />
-    <Compile Include="IDBHelper.cs" />
+    <Compile Include="DbHelper.cs" />
+    <Compile Include="Dbfactory.cs" />
+    <Compile Include="DbHelperInject.cs" />
+    <Compile Include="IDbHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TLMContext.cs" />
   </ItemGroup>

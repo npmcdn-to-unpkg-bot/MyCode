@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace TLMManager.Core
 {
-    public interface IDBHelper
+    public interface IDbHelper
     {
         /// <summary>
         /// 添加
@@ -42,9 +42,12 @@ namespace TLMManager.Core
         /// 获取一个列表
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TS"></typeparam>
         /// <param name="factor"></param>
+        /// <param name="orderby"></param>
+        /// <param name="ascing"></param>
         /// <returns></returns>
-        IQueryable<T> GetList<T, S>(Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing) where T : class;
+        IQueryable<T> GetList<T, TS>(Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing) where T : class;
 
         /// <summary>
         /// 按条件获取
@@ -58,7 +61,7 @@ namespace TLMManager.Core
         /// 按ID删除
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="factor"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         void Delete<T>(T entity) where T : class;
 
@@ -82,7 +85,7 @@ namespace TLMManager.Core
         /// 获取一个分页列表
         /// </summary>
         /// <typeparam name="T">实体</typeparam>
-        /// <typeparam name="S">排序</typeparam>
+        /// <typeparam name="TS">排序</typeparam>
         /// <param name="page">开始页</param>
         /// <param name="rows">第页条数</param>
         /// <param name="factor">查询条件</param>
@@ -90,20 +93,20 @@ namespace TLMManager.Core
         /// <param name="ascing">排序条件 true  升序，false 降序</param>
         /// <param name="totalrows">输出总页数</param>
         /// <returns></returns>
-        IQueryable<T> GetSkipList<T, S>(int page, int rows, Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing, out int totalrows) where T : class;
+        IQueryable<T> GetSkipList<T, TS>(int page, int rows, Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing, out int totalrows) where T : class;
 
 
         /// <summary>
         /// 分面获取
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
-        /// <typeparam name="S">排序类型</typeparam>
+        /// <typeparam name="TS">排序类型</typeparam>
         /// <param name="takeRow">Top 行</param>
         /// <param name="factor">查询条件</param>
+        /// <param name="orderby"></param>
         /// <param name="ascing">排序条件 true  升序，false 降序</param>
-        /// <param name="ascing"></param>
         /// <returns></returns>
-        IQueryable<T> GetTopList<T, S>(int takeRow, Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing) where T : class;
+        IQueryable<T> GetTopList<T, TS>(int takeRow, Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing) where T : class;
 
 
 

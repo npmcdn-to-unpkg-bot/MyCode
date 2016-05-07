@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using TLMManager.Entity;
 
@@ -17,11 +15,7 @@ namespace TLMManager.Controller
         /// <returns></returns>
         public Guid? CurrentUserId()
         {
-            if (this.CurrentUser != null)
-            {
-                return this.CurrentUser.SystemUserId;
-            }
-            return null;
+            return CurrentUser?.SystemUserId;
         }
 
         /// <summary>
@@ -31,7 +25,7 @@ namespace TLMManager.Controller
         {
             get
             {
-                var principal = this.User;
+                var principal = User;
                 if (principal == null)
                 {
                     return null;
@@ -39,7 +33,7 @@ namespace TLMManager.Controller
 
                 if (principal is SystemUser)
                 {
-                    return (SystemUser)principal;
+                    return principal as SystemUser;
                 }
                 else
                 {
