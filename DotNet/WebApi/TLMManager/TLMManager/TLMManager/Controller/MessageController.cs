@@ -32,5 +32,11 @@ namespace TLMManager.Controller
             };
             service.Add(message);
         }
+
+        public IList<Message> GetList()
+        {
+            IList<Message> list = service.GetList();
+            return list;
+        }
     }
 }
