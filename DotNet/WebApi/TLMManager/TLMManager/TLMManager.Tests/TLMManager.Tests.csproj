@@ -69,8 +69,13 @@
   <ItemGroup>
     <Compile Include="UnitMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitUser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TLMManager.Entity\TLMManager.Entity.csproj">
+      <Project>{d8bcdc39-4532-4ce1-961b-dc5038832981}</Project>
+      <Name>TLMManager.Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TLMManager.Service\TLMManager.Service.csproj">
       <Project>{6b7450fd-ed14-4a28-9246-b4f715411c11}</Project>
       <Name>TLMManager.Service</Name>

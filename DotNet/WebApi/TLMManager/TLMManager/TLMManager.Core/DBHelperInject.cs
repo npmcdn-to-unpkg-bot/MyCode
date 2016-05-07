@@ -1,15 +1,20 @@
-﻿using Ninject;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ninject;
 
 namespace TLMManager.Core
 {
-    public class DbHelperInject
+    public class DBHelperInject
     {
-        private static IKernel _container;
+        static IKernel container;
 
         public static void Init(IKernel kernel)
         {
-            _container = kernel;
-            _container.Bind<IDbHelper>().To<DbHelper>();
+            container = kernel;
+            container.Bind<IDBHelper>().To<DBHelper>();
         }
 
         /// <summary>
@@ -19,7 +24,7 @@ namespace TLMManager.Core
         /// <returns></returns>
         public static T Inject<T>()
         {
-            return _container.Get<T>();
+            return container.Get<T>();
         }
     }
 }

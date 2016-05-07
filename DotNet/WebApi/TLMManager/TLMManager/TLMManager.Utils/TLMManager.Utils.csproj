@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="FormsAuthenticationWrapper.cs" />
     <Compile Include="MD5Encrypt.cs" />
+    <Compile Include="PinYinHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

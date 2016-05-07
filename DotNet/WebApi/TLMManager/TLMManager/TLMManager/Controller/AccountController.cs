@@ -1,4 +1,8 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Http;
 using System.Web.Security;
 
@@ -13,11 +17,11 @@ namespace TLMManager.Controller
 {
     public class AccountController : BaseController
     {
-        private readonly IAccountService _service;
+        IAccountService service = null;
 
         public AccountController()
         {
-            _service = ModelInject.Inject<IAccountService>();
+            service = ModelInject.Inject<IAccountService>();
         }
 
         [AllowAnonymous]
@@ -30,9 +34,9 @@ namespace TLMManager.Controller
             {
                 UserName = username, 
                 PassWord = password,
-                IsRemenberMe = isRemenberMe
+                isRemenberMe = isRemenberMe
             };
-            bool isSuccess = _service.Logon(model, out message, out user);
+            bool isSuccess = service.Logon(model, out message, out user);
             if (isSuccess)
             {
                 FormsAuthenticationWrapper authenService = new FormsAuthenticationWrapper();

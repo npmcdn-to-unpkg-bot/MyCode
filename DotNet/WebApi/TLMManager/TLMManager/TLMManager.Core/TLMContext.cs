@@ -1,10 +1,11 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.SqlServer;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-#region 自用namespace
 using TLMManager.Entity;
-#endregion endregion
-
 
 namespace TLMManager.Core
 {
@@ -35,7 +36,7 @@ namespace TLMManager.Core
 
         public void FixEfProviderServicesProblem()
         {
-            var instance = SqlProviderServices.Instance;
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
     }
 }

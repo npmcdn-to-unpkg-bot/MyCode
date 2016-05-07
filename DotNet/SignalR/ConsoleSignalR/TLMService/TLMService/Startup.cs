@@ -4,7 +4,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace TLMService
 {
-    internal class Startup
+    class Startup
     {
         public void Configuration(IAppBuilder app)
         {

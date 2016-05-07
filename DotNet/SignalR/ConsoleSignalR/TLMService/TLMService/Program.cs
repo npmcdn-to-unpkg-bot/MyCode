@@ -1,13 +1,14 @@
 ﻿using System;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 
 namespace TLMService
 {
-    internal class Program
+    class Program
     {
-        private static void Main()
+        static void Main(string[] args)
         {
-            const string url = "http://localhost:8080";
+            string url = "http://localhost:8080";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);

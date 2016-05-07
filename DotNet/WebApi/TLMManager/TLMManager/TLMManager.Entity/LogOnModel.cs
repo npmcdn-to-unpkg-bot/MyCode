@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 #region 自有namespace
 
@@ -13,6 +18,6 @@ namespace TLMManager.Entity
 
         public string PassWord { get; set; }
 
-        public bool IsRemenberMe { get; set; }
+        public bool isRemenberMe { get; set; }
     }
 }

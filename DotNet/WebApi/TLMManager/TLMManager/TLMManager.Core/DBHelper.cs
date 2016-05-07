@@ -9,9 +9,10 @@ namespace TLMManager.Core
     /// <summary>
     /// 
     /// </summary>
-    public class DbHelper : IDbHelper
+    /// <typeparam name="T"></typeparam>
+    public class DBHelper : IDBHelper
     {
-        private readonly TLMContext _db = DBfactory.GetCurrentContext();
+        TLMContext _db = DBfactory.GetCurrentContext();
 
         public T Find<T>(Expression<Func<T, bool>> factor) where T : class
         {
@@ -31,14 +32,13 @@ namespace TLMManager.Core
 
         public void Add<T>(T entity) where T : class
         {
-            _db.Entry(entity).State = EntityState.Added;
+            _db.Entry<T>(entity).State = EntityState.Added;
         }
 
         public void Update<T>(T entity) where T : class
         {
-            if (entity == null) return;
             _db.Set<T>().Attach(entity);
-            _db.Entry(entity).State = EntityState.Modified;
+            _db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
         }
 
         /// <summary>
@@ -48,17 +48,19 @@ namespace TLMManager.Core
         /// <param name="entity"></param>
         public void Delete<T>(T entity) where T : class
         {
+
+
             _db.Set<T>().Attach(entity);
-            _db.Entry(entity).State = EntityState.Deleted;
+            _db.Entry<T>(entity).State = EntityState.Deleted;
         }
 
 
         public void Delete<T>(Expression<Func<T, bool>> factor) where T : class
         {
-            var list = GetList(factor);
+            var list = GetList<T>(factor);
             foreach (var item in list)
             {
-                _db.Entry(item).State = EntityState.Deleted;
+                _db.Entry<T>(item).State = EntityState.Deleted;
             }
         }
 
@@ -66,7 +68,7 @@ namespace TLMManager.Core
         /// 分页
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TS"></typeparam>
+        /// <typeparam name="S"></typeparam>
         /// <param name="page"></param>
         /// <param name="rows"></param>
         /// <param name="factor"></param>
@@ -74,12 +76,18 @@ namespace TLMManager.Core
         /// <param name="ascing"></param>
         /// <param name="totalrows"></param>
         /// <returns></returns>
-        public IQueryable<T> GetSkipList<T, TS>(int page, int rows, Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing, out int totalrows) where T : class
+        public IQueryable<T> GetSkipList<T, S>(int page, int rows, Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing, out int totalrows) where T : class
         {
             var list = GetList(factor, orderby, ascing);
-            totalrows = list?.Count() ?? 0;
-
-            list = list?.Skip((page - 1) * rows).Take(rows);
+            if (list != null)
+            {
+                totalrows = list.Count();
+            }
+            else
+            {
+                totalrows = 0;
+            }
+            list = list.Skip<T>((page - 1) * rows).Take(rows);
             return list;
         }
 
@@ -112,12 +120,12 @@ namespace TLMManager.Core
         /// 获取列表
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TS"></typeparam>
+        /// <typeparam name="S"></typeparam>
         /// <param name="factor"></param>
         /// <param name="orderby"></param>
         /// <param name="ascing"></param>
         /// <returns></returns>
-        public IQueryable<T> GetList<T, TS>(Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing) where T : class
+        public IQueryable<T> GetList<T, S>(Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing) where T : class
         {
             IQueryable<T> list = _db.Set<T>();
             if (factor != null)
@@ -126,43 +134,63 @@ namespace TLMManager.Core
             }
             if (orderby != null)
             {
-                list = ascing ? list.OrderBy(orderby) : list.OrderByDescending(orderby);
+                if (ascing)
+                {
+                    list = list.OrderBy<T, S>(orderby);
+                }
+                else
+                {
+                    list = list.OrderByDescending<T, S>(orderby);
+                }
             }
             return list;
         }
 
-        /// <summary>
-        /// 分面获取
-        /// </summary>
-        /// <typeparam name="T">类型</typeparam>
-        /// <typeparam name="TS">排序类型</typeparam>
-        /// <param name="takeRow">Top 行</param>
-        /// <param name="factor">查询条件</param>
-        /// <param name="orderby">排序条件</param>
-        /// <param name="ascing">true 升序，false 降序</param>
-        /// <returns></returns>
-        public IQueryable<T> GetTopList<T, TS>(int takeRow, Expression<Func<T, bool>> factor, Expression<Func<T, TS>> orderby, bool ascing) where T : class
-        {
-            IQueryable<T> list = _db.Set<T>();
-            if (factor != null)
-            {
-                list = list.Where(factor);
-            }
-            if (orderby != null)
-            {
-                list = ascing ? list.OrderBy(orderby) : list.OrderByDescending(orderby);
-            }
-            return list.Take(takeRow);
-        }
 
-        bool IDbHelper.IsExists<T>(Expression<Func<T, bool>> facotr)
-        {
-            return _db.Set<T>().Any(facotr);
-        }
 
         public int Save()
         {
             return _db.SaveChanges();
         }
+
+
+
+        /// <summary>
+        /// 分面获取
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <typeparam name="S">排序类型</typeparam>
+        /// <param name="takeRow">Top 行</param>
+        /// <param name="factor">查询条件</param>
+        /// <param name="ascing">排序条件 true  升序，false 降序</param>
+        /// <param name="ascing"></param>
+        /// <returns></returns>
+        public IQueryable<T> GetTopList<T, S>(int takeRow, Expression<Func<T, bool>> factor, Expression<Func<T, S>> orderby, bool ascing) where T : class
+        {
+            IQueryable<T> list = _db.Set<T>();
+            if (factor != null)
+            {
+                list = list.Where(factor);
+            }
+            if (orderby != null)
+            {
+                if (ascing)
+                {
+                    list = list.OrderBy<T, S>(orderby);
+                }
+                else
+                {
+                    list = list.OrderByDescending<T, S>(orderby);
+                }
+            }
+
+            return list.Take(takeRow);
+        }
+
+        bool IDBHelper.IsExists<T>(Expression<Func<T, bool>> facotr)
+        {
+            return _db.Set<T>().Any(facotr);
+        }
+
     }
 }

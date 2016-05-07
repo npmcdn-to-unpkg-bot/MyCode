@@ -8,12 +8,12 @@ namespace TLMService
 {
     public class TLMHub : Hub
     {
-        static readonly List<CurrentUser> ConnectedUsers = new List<CurrentUser>();
+        static List<CurrentUser> ConnectedUsers = new List<CurrentUser>();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="userID"></param>
         public void Connect(string username)
         {
             var id = Context.ConnectionId;
@@ -35,12 +35,11 @@ namespace TLMService
             }
             Console.WriteLine("id :" + id + "username :" + username + " connected");
         }
-
+      
         /// <summary>
         /// 登出
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="stopCalled"></param>
+        /// <param name="userID"></param>
         public void LogOut(string username, bool stopCalled)
         {
             var id = Context.ConnectionId;
@@ -73,7 +72,7 @@ namespace TLMService
         /// <summary>
         /// 发送信息
         /// </summary>
-        /// <param name="toUserName"></param>
+        /// <param name="who"></param>
         /// <param name="message"></param>
         public void Send(string toUserName, string message)
         {
@@ -86,7 +85,7 @@ namespace TLMService
 
                 Clients.Caller.send(fromUser.UserName, toUser.UserName, message); ;
             }
-            Console.WriteLine("target:" + toUserName + "|message :" + message);
+            Console.WriteLine("connection(" + fromUser.ConnectionId + "): target:" + toUserName + "|message :" + message);
         }
     }
 }

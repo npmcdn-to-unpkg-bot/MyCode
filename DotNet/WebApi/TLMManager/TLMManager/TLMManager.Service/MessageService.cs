@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
 #region 自用namespace
 using TLMManager.Core;
@@ -14,11 +16,11 @@ namespace TLMManager.Service
 {
     public class MessageService : IMessageService  
     {
-        private readonly IDbHelper _db;
+        IDBHelper _db;
 
         public MessageService() 
         { 
-            _db = DbHelperInject.Inject<IDbHelper>(); 
+            _db = DBHelperInject.Inject<IDBHelper>(); 
         }
 
         #region IMessageService Members
@@ -26,9 +28,7 @@ namespace TLMManager.Service
         /// <summary>
         /// 根据fromuser, touser, addtime得到实体
         /// </summary>
-        /// <param name="fromUser"></param>
-        /// <param name="toUser"></param>
-        /// <param name="addtime"></param>
+        /// <param name="username"></param>
         /// <returns></returns>
         public Message Find(string fromUser, string toUser, DateTime addtime)
         {
@@ -38,7 +38,7 @@ namespace TLMManager.Service
         public bool Add(Message message)
         {
             message.Id = Guid.NewGuid();
-            _db.Add(message);
+            _db.Add<Message>(message);
             return _db.Save() > 0;
         }
 
@@ -49,7 +49,7 @@ namespace TLMManager.Service
 
         public IList<Message> GetList(Expression<Func<Message, bool>> factor)
         {
-            return _db.GetList(factor).ToList();
+            return _db.GetList<Message>(factor).ToList();
         }
 
 
