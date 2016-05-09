@@ -22,7 +22,7 @@ namespace TLMManager.Entity
 
         public int? DeletionStateCode { get; set; }
 
-        public int? statecode { get; set; }
+        public int? Statecode { get; set; }
         [MaxLength(100)]
         public string UserName { get; set; }
         [MaxLength(500)]

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TLMManager.Entity;
+﻿using TLMManager.Entity;
 
 namespace TLMManager.Service.Interface
 {

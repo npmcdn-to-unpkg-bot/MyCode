@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-#region 自有namespace
+﻿#region 自有namespace
 using TLMManager.Core;
 using TLMManager.Entity;
 using TLMManager.Service.Interface;
@@ -13,12 +7,12 @@ using TLMManager.Utils;
 
 namespace TLMManager.Service
 {
-    public class AccountService : DBHelper, IAccountService
+    public class AccountService : DbHelper, IAccountService
     {
-        IDBHelper _db;
+        private readonly IDbHelper _db;
         public AccountService()
         {
-            _db = DBHelperInject.Inject<IDBHelper>();
+            _db = DBHelperInject.Inject<IDbHelper>();
         }
 
         #region IAccountService Members
@@ -26,15 +20,13 @@ namespace TLMManager.Service
         /// <summary>
         /// 登录
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password"></param>
-        /// <param name="persistCookie"></param>
-        /// <param name="ip"></param>
+        /// <param name="model"></param>
         /// <param name="message"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
         public bool Logon(LogOnModel model, out string message, out SystemUser user)
         {
-            bool isTrue = CheckUserAndPassword(model.UserName, model.PassWord, out message, out user);
+            var isTrue = CheckUserAndPassword(model.UserName, model.PassWord, out message, out user);
 
             return isTrue;
         }
@@ -42,21 +34,20 @@ namespace TLMManager.Service
         /// <summary>
         /// 检查登录用户合法性
         /// </summary>
-        /// <param name="userName"></param>
+        /// <param name="empo"></param>
         /// <param name="password"></param>
-        /// <param name="ip"></param>
         /// <param name="message"></param>
         /// <param name="user"></param>
         /// <returns></returns>
         private bool CheckUserAndPassword(string empo, string password, out string message, out SystemUser user)
         {
-            bool isSuccess = false;
+            var isSuccess = false;
             message = string.Empty;
 
             user = _db.Find<SystemUser>(o => o.TLM_empno == empo);
             if (user != null)
             {
-                string encryptPwd = MD5Encrypt.MD5(password);
+                var encryptPwd = MD5Encrypt.MD5(password);
                 if (user.Password != encryptPwd)
                 {
                     message = "用户名或密码错误";

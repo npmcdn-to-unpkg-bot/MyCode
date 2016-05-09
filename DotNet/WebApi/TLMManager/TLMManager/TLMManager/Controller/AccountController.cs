@@ -34,7 +34,7 @@ namespace TLMManager.Controller
             {
                 UserName = username, 
                 PassWord = password,
-                isRemenberMe = isRemenberMe
+                IsRemenberMe = isRemenberMe
             };
             bool isSuccess = service.Logon(model, out message, out user);
             if (isSuccess)

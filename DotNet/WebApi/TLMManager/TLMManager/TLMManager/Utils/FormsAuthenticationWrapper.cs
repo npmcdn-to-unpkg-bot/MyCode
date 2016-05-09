@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
 
@@ -19,7 +17,7 @@ namespace TLMManager.Utils
 
         public void SetAuthCookie(HttpContext context, SystemUser user, bool createPersistentCookie)
         {
-            int cookieExpiration = 7; //Cookie过期日期
+            const int cookieExpiration = 7; //Cookie过期日期
             if (user == null)
             {
                 throw new ArgumentNullException("user");

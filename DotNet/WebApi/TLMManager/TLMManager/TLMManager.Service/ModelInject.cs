@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject;
+﻿using Ninject;
 
 using TLMManager.Core;
 using TLMManager.Service.Interface;
@@ -12,20 +7,20 @@ namespace TLMManager.Service
 {
     public class ModelInject
     {
-        static IKernel container;
+        private static IKernel _container;
 
         public static void Init()
         {
-            container = new StandardKernel(); //ioc 注册
-            DBHelperInject.Init(container);
+            _container = new StandardKernel(); //ioc 注册
+            DBHelperInject.Init(_container);
             AddBindings();
         }
 
         private static void AddBindings()
         {
-            container.Bind<IUserService>().To<UserService>();
-            container.Bind<IMessageService>().To<MessageService>();
-            container.Bind<IAccountService>().To<AccountService>();
+            _container.Bind<IUserService>().To<UserService>();
+            _container.Bind<IMessageService>().To<MessageService>();
+            _container.Bind<IAccountService>().To<AccountService>();
         }
 
         /// <summary>
@@ -35,7 +30,7 @@ namespace TLMManager.Service
         /// <returns></returns>
         public static T Inject<T>()
         {
-            return container.Get<T>();
+            return _container.Get<T>();
         }
     }
 }

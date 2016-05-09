@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+
 #region 自用namespace
 using TLMManager.Service.Interface;
 using TLMManager.Service;
@@ -14,15 +11,15 @@ namespace TLMManager.Controller
 {
     public class MessageController : BaseController
     {
-        IMessageService service = null;
+        private readonly IMessageService _service;
         public MessageController()
         {
-            service = ModelInject.Inject<IMessageService>();
+            _service = ModelInject.Inject<IMessageService>();
         }
 
         public void Add(string fromuser, string touser, string content)
         {
-            Message message = new Message
+            var message = new Message
             {
                 FromUser = fromuser,
                 ToUser = touser,
@@ -30,12 +27,12 @@ namespace TLMManager.Controller
                 Flag = false,
                 AddTime = DateTime.Now
             };
-            service.Add(message);
+            _service.Add(message);
         }
 
         public IList<Message> GetList()
         {
-            IList<Message> list = service.GetList();
+            var list = _service.GetList();
             return list;
         }
     }
