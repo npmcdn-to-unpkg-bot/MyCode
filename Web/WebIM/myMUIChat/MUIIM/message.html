@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>TLMIM</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link rel="stylesheet" href="css/mui.css">
+	<!--App自定义的css-->
+	<link rel="stylesheet" href="css/app.css"/>
+	<link rel="stylesheet" href="css/iconfont.css" />
+	<style>
+		.title {
+			margin: 20px 15px 10px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">聊天记录</h1>
+		<a id="search" class="mui-icon iconfont icon-sousuokuangsousuo mui-icon-right-nav mui-pull-right"></a>
+	</header>
+    <div id="messages" class="mui-content">
+    	<ul class="mui-table-view">
+    		<script id='msg-template' type="text/template">
+		 	<% for(var key in objlist) { %>
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;">
+					<img style="width: 40px;" class="mui-media-object mui-pull-left" onerror='javascript:src="images/logo.png"'
+						src="<%=(objlist[key].Avator)%>" >
+					<div class="mui-media-body">
+						<%=(objlist[key].Name)%> 
+						<p class='mui-ellipsis'><%=(objlist[key].Content)%></p>
+					</div>
+				</a>
+			</li>
+			<% } %>
+			</script>
+		</ul>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.10.2.js" ></script>
+    <script src="js/mui.js"></script>
+    <script type="text/javascript" src="js/arttmpl.js"></script>
+	<script type="text/javascript">
+	mui.ready(function(){
+		var messages = document.getElementById("messages");
+		mui.ajax({
+			type: 'get',
+			data: { 'fromuser' : '100100', 'touser' : '100100'},
+			url: 'http://localhost:61725/api/message/getmessagelist',
+			datatype: 'json',
+			async: true,
+			success: function (data) {
+                var objlist = data;
+				messages.innerHTML = template('msg-template', {
+					"objlist": objlist
+				});	
+            }
+		})
+		
+		var search = document.getElementById("search");
+		search.addEventListener("click", function(){
+			mui.openWindow({
+				id: "content",
+				url: "list.html",
+				extras: {
+					//name: _name
+				},
+				show: {
+					aniShow:'pop-in'//参考官方的效果
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+	})
+	mui.plusReady(function(){
+		var self = plus.webview.currentWebview();
+		var empo = self.empo;
+	
+    	mui.ajax({
+    		type: 'get',
+                data:  { 'fromuser' : empo, 'touser' : empo},
+                url: 'http://localhost:61725/api/message/getlist',
+                datatype: 'json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+            }
+    	});
+	})
+</script>
+</body>
+</html>
