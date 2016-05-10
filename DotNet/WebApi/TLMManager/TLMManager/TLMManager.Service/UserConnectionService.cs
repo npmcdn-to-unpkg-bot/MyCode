@@ -55,4 +55,6 @@ namespace TLMManager.Service
             return _db.GetList(factor).ToList();
         }
     }
+
+
 }
