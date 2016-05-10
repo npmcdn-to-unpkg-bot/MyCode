@@ -6,7 +6,9 @@
 			"css/mui.min.css",
 			"im-chat.html",
 			"list.html",
-			"js/socket.js"
+			"js/socket.js",
+			"js/jquery-1.10.2.js",
+			"js/jquery.signalR-2.2.0.js"
 		],
 		"refer": [
 			"im-chat.html",
@@ -26,7 +28,9 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"js/socket.js",
-			"js/im-chat.js"
+			"js/im-chat.js",
+			"js/jquery-1.10.2.js",
+			"js/jquery.signalR-2.2.0.js"
 		],
 		"refer": [
 			"index.html"
@@ -41,7 +45,9 @@
 			"index.html",
 			"css/mui.indexedlist.css",
 			"js/mui.indexedlist.js",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"images/logo.png",
+			"js/arttmpl.js"
 		],
 		"refer": [
 			"index.html",

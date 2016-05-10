@@ -1,13 +1,10 @@
 IMChatUI = (function($, doc) {
-	var name;
-	var target;
-	var MIN_SOUND_TIME = 800;
-	var self = null; //当前窗口
-	var previous_webview = null; //上一个窗口
-	
-	self = plus.webview.currentWebview();;
-	previous_webview = plus.webview.getWebviewById(self.previous_webview_id);
-	socket.connect(name); //socket启动
+	var name = 'tom',
+	    target = 'lily',
+		MIN_SOUND_TIME = 800,
+		self,
+		previous_webview;
+
 	$.init({
 		gestureConfig: {
 			tap: true, //默认为true
@@ -20,9 +17,28 @@ IMChatUI = (function($, doc) {
 		}
 	});
 	
+	//signalR 设置
+	$.connection.hub.url = "http://192.168.15.177:8080/signalr/";
+	var chat = $.connection.tLMHub;	
+	
+    $.connection.hub.start()
+    .done(function () {
+        chat.server.getUserList();
+    })
+    .fail(function (error) {
+        console.log(value);
+    });
+	
 	template.config('escape', false);
 
 	$.plusReady(function() {
+		self = plus.webview.currentWebview(); //当前窗口
+		previous_webview= plus.webview.getWebviewById(self.previous_webview_id); //上一个窗口
+
+		name = self.name;
+		var title = document.getElementsByClassName('mui-title')[0];
+		title.innerHTML = name;
+
 		self.setStyle({
 			softinputMode: "adjustResize"
 		});
@@ -99,6 +115,7 @@ IMChatUI = (function($, doc) {
 			ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
 		}, false);
 		var send = function(msg) {
+			chat.server.send(target, msg)
 			//socket.sendMessage(target, msg);
 			record.push(msg);
 			bindMsgList();

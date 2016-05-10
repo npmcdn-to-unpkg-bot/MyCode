@@ -8,7 +8,6 @@
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link href="css/mui.indexedlist.css" rel="stylesheet" />
     <script src="js/mui.min.js"></script>
-    <script src="js/config.js"></script>
     <script src="js/mui.indexedlist.js"></script>
     <style>
 		html,
@@ -62,57 +61,75 @@
 			</div>
 			<div class="mui-indexed-list-alert"></div>
 			<div class="mui-indexed-list-inner">
-				<div class="mui-indexed-list-empty-alert">没有数据</div>
-				<ul class="mui-table-view">
-					<li data-group="T" class="mui-table-view-divider mui-indexed-list-group">T</li>					
-					<li class="mui-table-view-cell mui-media mui-indexed-list-item" data-value="temp1" data-tags="temp1">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../images/1.jpg">
-							<div class="mui-media-body">
-								temp1
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-indexed-list-item" data-value="temp2" data-tags="temp2">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../images/2.jpg">
-							<div class="mui-media-body">
-								temp2
-							</div>
-						</a>
-					</li>
+				<ul id="userlist" class="mui-table-view">
+                    <script id='msg-template' type="text/template">
+                        <% for(var key in objlist) { %>
+					    <li data-group="<%=(key)%>" class="mui-table-view-divider mui-indexed-list-group"><%=(key)%></li>
+						<% for(var index in objlist[key]) { %>
+						<li class="mui-table-view-cell mui-media mui-indexed-list-item" data-value="<%=(objlist[key][index].UserName)%>" data-tags="<%=(objlist[key][index].UserName)%>">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" onerror='javascript:src="images/logo.png"' src="<%=(objlist[key][index].TLM_userimg)%>">
+								<div class="mui-media-body">
+									<%=(objlist[key][index].Name)%>
+								</div>
+							</a>
+						</li>
+						<% }} %>
+                    </script>
 				</ul>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="js/jquery-1.10.2.js" ></script>
+	<script type="text/javascript" src="js/jquery.signalR-2.2.0.js" ></script>
+	<script type="text/javascript" src="js/arttmpl.js"></script>
+	<script src="http://192.168.15.177:8080/signalr/hubs"></script>
 	<script type="text/javascript" charset="utf-8">
 		mui.init();
 		mui.ready(function() {
 			var header = document.querySelector('header.mui-bar');
 			var list = document.getElementById('list');
+			var userlist = document.getElementById('userlist');
 			//calc height
 			list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
 			//create
 			window.indexedList = new mui.IndexedList(list);
+
+			//联系人列表数据
+			var objlist = [];
 			
+			//手机端获取用户列表
+			mui.ajax({
+				type: 'get',
+				url: 'http://localhost:61725/api/user/getlist',
+				datatype: 'json',
+				async: true,
+				success: function(data){
+					var objlist = data;
+					userlist.innerHTML = template('msg-template', {
+						"objlist": objlist
+					});	
+				}
+			})
+			
+			//用户列表按钮事
 			mui("ul.mui-table-view").on("tap", "li.mui-table-view-cell", function(){
-					var _name = this.querySelector("div.mui-media-body").innerHTML;
-					mui.openWindow({
-						id: "content",
-						url: "im-chat.html",
-						extras: {
-							name: _name
-						},
-						show: {
-							aniShow:'pop-in'//参考官方的效果
-						},
-						waiting: {
-							autoShow: false
-						}
-					});
+				var _name = this.querySelector("div.mui-media-body").innerHTML;
+				mui.openWindow({
+					id: "content",
+					url: "im-chat.html",
+					extras: {
+						name: _name
+					},
+					show: {
+						aniShow:'pop-in'//参考官方的效果
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
 			})
 		});
-
 	</script>
 </body>
 </html>

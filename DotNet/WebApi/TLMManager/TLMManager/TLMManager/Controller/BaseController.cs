@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using TLMManager.Entity;
 
 namespace TLMManager.Controller
@@ -9,22 +8,18 @@ namespace TLMManager.Controller
     /// </summary>
     public abstract class BaseController : ApiController
     {
-        /// <summary>
-        /// 获取当前用户ID
-        /// </summary>
-        /// <returns></returns>
-        public Guid? CurrentUserId()
+        //<summary>
+        //获取当前用户ID
+        //</summary>
+        //<returns></returns>
+        public string CurrentUserId()
         {
-            if (CurrentUser != null)
-            {
-                return CurrentUser.SystemUserId;
-            }
-            return null;
+            return CurrentUser != null ? CurrentUser.UserName : null;
         }
 
-        /// <summary>
-        /// 当前用户
-        /// </summary>
+        //<summary>
+         //当前用户
+         //</summary>
         public SystemUser CurrentUser
         {
             get

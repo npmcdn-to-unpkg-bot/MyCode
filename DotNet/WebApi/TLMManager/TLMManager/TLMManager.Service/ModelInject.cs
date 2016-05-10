@@ -1,5 +1,4 @@
 ﻿using Ninject;
-
 using TLMManager.Core;
 using TLMManager.Service.Interface;
 
@@ -12,7 +11,7 @@ namespace TLMManager.Service
         public static void Init()
         {
             _container = new StandardKernel(); //ioc 注册
-            DBHelperInject.Init(_container);
+            DbHelperInject.Init(_container);
             AddBindings();
         }
 
@@ -21,6 +20,7 @@ namespace TLMManager.Service
             _container.Bind<IUserService>().To<UserService>();
             _container.Bind<IMessageService>().To<MessageService>();
             _container.Bind<IAccountService>().To<AccountService>();
+            _container.Bind<IUserConnectionService>().To<UserConnectionService>();
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using TLMManager.Core;
 using TLMManager.Entity;
 using TLMManager.Service.Interface;
 using TLMManager.Utils;
+
 #endregion
 
 namespace TLMManager.Service
@@ -12,7 +13,7 @@ namespace TLMManager.Service
         private readonly IDbHelper _db;
         public AccountService()
         {
-            _db = DBHelperInject.Inject<IDbHelper>();
+            _db = DbHelperInject.Inject<IDbHelper>();
         }
 
         #region IAccountService Members
@@ -47,7 +48,7 @@ namespace TLMManager.Service
             user = _db.Find<SystemUser>(o => o.TLM_empno == empo);
             if (user != null)
             {
-                var encryptPwd = MD5Encrypt.MD5(password);
+                var encryptPwd = password;
                 if (user.Password != encryptPwd)
                 {
                     message = "用户名或密码错误";

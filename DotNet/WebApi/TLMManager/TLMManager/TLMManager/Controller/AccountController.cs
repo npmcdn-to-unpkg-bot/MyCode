@@ -1,58 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
-using System.Web.Security;
+using TLMManager.Utils;
 
 #region 自有namespace
 using TLMManager.Entity;
 using TLMManager.Service.Interface;
 using TLMManager.Service;
-using TLMManager.Utils;
 #endregion
 
 namespace TLMManager.Controller
 {
     public class AccountController : BaseController
     {
-        IAccountService service = null;
+        private readonly IAccountService _service;
 
         public AccountController()
         {
-            service = ModelInject.Inject<IAccountService>();
-        }
+            _service = ModelInject.Inject<IAccountService>();
+        }   
 
-        [AllowAnonymous]
         [HttpPost]
-        public string Login(string username, string password, bool isRemenberMe)
+        public string Login([FromBody]LogOnModel login)
         {
             SystemUser user;
             string message;
-            LogOnModel model = new LogOnModel()
-            {
-                UserName = username, 
-                PassWord = password,
-                IsRemenberMe = isRemenberMe
-            };
-            bool isSuccess = service.Logon(model, out message, out user);
-            if (isSuccess)
-            {
-                FormsAuthenticationWrapper authenService = new FormsAuthenticationWrapper();
-                authenService.SetAuthCookie(HttpContext.Current, user, isRemenberMe);
-            }
+
+            var isSuccess = _service.Logon(login, out message, out user);
+            if (!isSuccess) return message;
+            var authenService = new FormsAuthenticationWrapper();
+            authenService.SetAuthCookie(HttpContext.Current, user, login.IsRemenberMe);
             return message;
         }
 
-        /// <summary>
-        /// 登出
-        /// </summary>
-        public void SignOut()
+        [HttpGet]
+        public string UserId()
         {
-            FormsAuthentication.SignOut();
+            var userId = CurrentUserId();
+            return userId;
         }
-
 
     }
 }

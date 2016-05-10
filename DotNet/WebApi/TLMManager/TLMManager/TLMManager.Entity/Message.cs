@@ -53,5 +53,25 @@ namespace TLMManager.Entity
         /// </summary>
         public string ConnectionId { get; set; }
     }
-    
+
+    [NotMapped]
+    public class MessageUser
+    {
+        public string ToUser { get; set; }
+        public string FromUser { get; set; }
+    }
+
+    [NotMapped]
+    public class MessageInfo
+    {
+        public string UserName { get; set; }
+
+        public string Name { get; set; }
+
+        public string Content { get; set; }
+
+        public string ConnectionId { get; set; }
+
+        public string Avator { get; set; }
+    }
 }

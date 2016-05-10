@@ -24,6 +24,15 @@
                     chat（聊天列表）
                 </a>
             </li>
+            <li class="mui-table-view-cell">
+                <label>工号</label><input id="empo" type="text" />
+            </li>
+            <li class="mui-table-view-cell">
+                <label>密码</label><input id="password" type="text" />
+            </li>   
+            <li class="mui-table-view-cell">
+            	<input id="login" type="button" value="登录" />
+            </li>
 			<li class="mui-table-view-cell">
                 <label>姓名</label><input id="name" type="text" />
             </li>
@@ -34,14 +43,14 @@
                 <label>信息</label><input id="content" type="text" />
             </li>
             <li class="mui-table-view-cell">
-            	<input id="login" type="button" value="登录" />
+            	<input id="connect" type="button" value="连线" />
                 <input id="submit" type="button" value="发送" />
             </li>
 		</ul>
 	</div>
 	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery.signalR-2.2.0.js"></script>
-	<script src="http://localhost:8080/signalr/hubs"></script>
+	<!--<script src="js/jquery.signalR-2.2.0.js"></script>
+	<script src="http://192.168.15.177:8080/signalr/hubs"></script>-->
     <!--<script src="js/signalr.js"></script>-->
 	<!--<script src="js/socket.js"></script> -->
 	<script type="text/javascript">
@@ -52,41 +61,83 @@
 	
     function getTimeString() {
         var currentTime = new Date();
-        return currentTime.toTimeString();
+        return currentTime.toTimeString(); 
+    }
+
+	var loginEvent = function() {
+		var empo = document.getElementById("empo");
+		var password = document.getElementById("password");
+		var login = document.getElementById("login");
+		
+		login.addEventListener('click', function(){
+			mui.ajax({
+                type: 'POST',
+                data:  {'username': empo.value, 'password': password.value, 'isRemenberMe': true},
+                url: 'http://localhost:61725/api/account/login',
+                datatype: 'json',
+                async: true,
+                success: function () {
+                    mui.alert("登录成功" , null, null, function () {
+                        mui.openWindow({
+                        	id: 'message',
+                        	url: 'message.html',
+                        	extra : {empo : empo.value}
+                        })
+                    });
+                }
+            });
+		});
+	}
+
+    var connect = function () {
+        var name = document.getElementById("name");
+        var target = document.getElementById("target");
+        var content = document.getElementById("content");
+        var connect = document.getElementById('connect');
+        var submit = document.getElementById("submit");
+
+        $.connection.hub.url = "http://192.168.15.177:8080/signalr";
+        var chat = $.connection.tLMHub;
+
+        $.connection.hub.logging = true;
+
+        chat.client.send = function (fromuser, touser, value) {
+            var line = fromuser + '对' + touser + '说:' + value;
+            writeLine(line);
+        }
+
+        $.connection.hub.start()
+                .done(function () {
+                    connect.addEventListener('click', function(){
+                        console.log("connected");
+                        chat.server.connect(name.value);
+                    })
+                    submit.addEventListener('click', function(){
+                        chat.server.send(name.value, target.value, content.value);
+                    })
+
+                })
+                .fail(function (error) {
+                    console.log(value);
+                });
     }
 
 	mui.ready(function(){
-		var name = document.getElementById("name");
-		var target = document.getElementById("target");
-		var content = document.getElementById("content");
-		var login = document.getElementById('login');
-		var submit = document.getElementById("submit");
-
-        $.connection.hub.url = "http://localhost:8080/signalr";
-        var chat = $.connection.tLMHub;
-        
-        $.connection.hub.logging = true;
-             
-        chat.client.send = function (fromuser, touser, value) {
-            var line = fromuser + '对' + touser + '说:' + value;
-	        writeLine(line);
-	    }     
-     
-        $.connection.hub.start()
-            .done(function () {
-                login.addEventListener('click', function(){
-                    console.log("connected");
-                    chat.server.connect(name.value);
-                })
-                submit.addEventListener('click', function(){
-                    chat.server.send(target.value, content.value);
-                })  
-                
-            })
-            .fail(function (error) {
-                console.log(value);
-            });
-
+        loginEvent();
+        //connect();
+        preloadPages: [{  
+        	url:'list.html',
+        	id: "list",
+        	extras: {
+				
+			},
+			show: {
+				aniShow:'pop-in'//参考官方的效果
+			},
+			waiting: {
+				autoShow: false
+			}
+   	 	}]  
 	})
 	</script>
 </body>

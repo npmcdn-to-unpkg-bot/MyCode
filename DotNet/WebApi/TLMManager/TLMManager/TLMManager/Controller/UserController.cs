@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+
 #region 自有namespace
 using TLMManager.Entity;
 using TLMManager.Service;
@@ -28,6 +29,7 @@ namespace TLMManager.Controller
         public IDictionary<string, IList<SystemUser>> GetList()
         {
             var list = _service.GetList();
+ 
             return list;
         }
     }

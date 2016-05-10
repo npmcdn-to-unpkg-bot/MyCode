@@ -6,7 +6,7 @@ namespace TLMManager.Core
     /// <summary>
     /// 数据库上下文
     /// </summary>
-    public partial class TLMContext : DbContext
+    public class TLMContext : DbContext
     {
         static TLMContext()
         {
@@ -22,6 +22,7 @@ namespace TLMManager.Core
 
         public DbSet<SystemUser> SystemUser { get; set; }
         public DbSet<Message> UserMessage { get; set; }
+        public DbSet<UserConnection> UserConnection { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

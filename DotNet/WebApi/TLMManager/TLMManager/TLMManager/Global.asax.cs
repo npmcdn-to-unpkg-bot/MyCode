@@ -10,6 +10,8 @@ namespace TLMManager
         protected void Application_Start(object sender, EventArgs e)
         {
             ModelInject.Init();  //ioc
+
+            //
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
 

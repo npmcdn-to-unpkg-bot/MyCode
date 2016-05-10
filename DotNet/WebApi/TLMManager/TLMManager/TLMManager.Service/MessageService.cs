@@ -18,7 +18,7 @@ namespace TLMManager.Service
 
         public MessageService() 
         { 
-            _db = DBHelperInject.Inject<IDbHelper>(); 
+            _db = DbHelperInject.Inject<IDbHelper>(); 
         }
 
         #region IMessageService Members

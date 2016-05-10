@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="AccountService.cs" />
     <Compile Include="Interface\IAccountService.cs" />
+    <Compile Include="Interface\IUserConnectionService.cs" />
+    <Compile Include="UserConnectionService.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="Interface\IMessageService.cs" />
     <Compile Include="Interface\IUserService.cs" />
