@@ -8,15 +8,16 @@ namespace TLMService
 {
     public class TLMHub : Hub
     {
-        static List<CurrentUser> ConnectedUsers = new List<CurrentUser>();
+        private static readonly List<CurrentUser> ConnectedUsers = new List<CurrentUser>();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userID"></param>
-        public void Connect(string username)
+        /// <param name="connectionId"></param>
+        /// <param name="username"></param>
+        public void Connect(string connectionId, string username)
         {
-            var id = Context.ConnectionId;
+            var id = string.IsNullOrEmpty(connectionId) ? Context.ConnectionId : connectionId;
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new CurrentUser
@@ -24,7 +25,7 @@ namespace TLMService
                     ConnectionId = id,
                     UserName = username
                 });
-                Clients.Caller.onConnected(id, username);
+                Clients.Caller.connect(id, username);
 
                 //Clients.Client(id).onNewUserConnected(id, userID);
             }
@@ -35,11 +36,12 @@ namespace TLMService
             }
             Console.WriteLine("id :" + id + "username :" + username + " connected");
         }
-      
+
         /// <summary>
         /// 登出
         /// </summary>
-        /// <param name="userID"></param>
+        /// <param name="username"></param>
+        /// <param name="stopCalled"></param>
         public void LogOut(string username, bool stopCalled)
         {
             var id = Context.ConnectionId;
@@ -72,7 +74,7 @@ namespace TLMService
         /// <summary>
         /// 发送信息
         /// </summary>
-        /// <param name="who"></param>
+        /// <param name="toUserName"></param>
         /// <param name="message"></param>
         public void Send(string toUserName, string message)
         {
@@ -82,10 +84,9 @@ namespace TLMService
             if (toUser != null && fromUser != null)
             {
                 Clients.Client(toUser.ConnectionId).send(fromUser.UserName, toUser.UserName, message);
-
                 Clients.Caller.send(fromUser.UserName, toUser.UserName, message); ;
             }
-            Console.WriteLine("connection(" + fromUser.ConnectionId + "): target:" + toUserName + "|message :" + message);
+            Console.WriteLine(" target:" + toUserName + "|message :" + message);
         }
     }
 }

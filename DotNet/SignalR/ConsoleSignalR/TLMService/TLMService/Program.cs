@@ -8,7 +8,7 @@ namespace TLMService
     {
         static void Main(string[] args)
         {
-            string url = "http://localhost:8080";
+            string url = "http://192.168.15.177:8080";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);

@@ -92,7 +92,10 @@
                 datatype: 'json',
                 async: true,
                 success: function (data) {
-                    console.log(data);
+                    var objlist = data;
+				messages.innerHTML = template('msg-template', {
+					"objlist": objlist
+				});
             }
     	});
 	})

@@ -22,8 +22,17 @@ namespace TLMManager.Controller
         [HttpPost]
         public void Add([FromBody] UserConnection conn)
         {
-            conn.Id = new Guid();
-            _service.Add(conn);
+            var temp = _service.Get(conn.UserName);
+            if (temp == null)
+            {
+                conn.Id = new Guid();
+                _service.Add(conn); 
+            }
+            else
+            {
+                temp.ConnectionId = conn.ConnectionId;
+                _service.Update(temp);
+            }
         }
 
         /// <summary>

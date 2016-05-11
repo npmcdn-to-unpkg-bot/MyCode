@@ -10,7 +10,7 @@ namespace TLMManager.Core
     {
         static TLMContext()
         {
-            Database.SetInitializer<TLMContext>(null);
+            //Database.SetInitializer<TLMContext>(null);
         }
 
         public TLMContext()

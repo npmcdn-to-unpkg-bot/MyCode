@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Http;
+using System.Web.Security;
 using TLMManager.Utils;
 
 #region 自有namespace
@@ -27,8 +28,12 @@ namespace TLMManager.Controller
 
             var isSuccess = _service.Logon(login, out message, out user);
             if (!isSuccess) return message;
-            var authenService = new FormsAuthenticationWrapper();
-            authenService.SetAuthCookie(HttpContext.Current, user, login.IsRemenberMe);
+            //var authenService = new FormsAuthenticationWrapper();
+            //authenService.SetAuthCookie(HttpContext.Current, user, login.IsRemenberMe);
+            //SetPrincipal(HttpContext.Current.User);
+            //var userid = CurrentUserId();
+            //return userid;
+            FormsAuthentication.SetAuthCookie(login.UserName, true);
             return message;
         }
 

@@ -11,6 +11,8 @@ namespace TLMManager.Service.Interface
 
         bool Add(UserConnection conn);
 
+        bool Update(UserConnection conn);
+
         IList<UserConnection> GetList();
 
         IList<UserConnection> GetList(Expression<Func<UserConnection, bool>> factor);

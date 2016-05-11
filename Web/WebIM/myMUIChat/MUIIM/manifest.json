@@ -201,7 +201,8 @@
 					"list.html",
 					"js/socket.js",
 					"js/jquery-1.10.2.js",
-					"js/jquery.signalR-2.2.0.js"
+					"js/jquery.signalR-2.2.0.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0

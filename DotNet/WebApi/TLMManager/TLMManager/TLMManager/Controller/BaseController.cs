@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Security.Principal;
+using System.Threading;
+using System.Web;
+using System.Web.Http;
 using TLMManager.Entity;
 
 namespace TLMManager.Controller
@@ -12,7 +15,7 @@ namespace TLMManager.Controller
         //获取当前用户ID
         //</summary>
         //<returns></returns>
-        public string CurrentUserId()
+        protected string CurrentUserId()
         {
             return CurrentUser != null ? CurrentUser.UserName : null;
         }
@@ -20,7 +23,7 @@ namespace TLMManager.Controller
         //<summary>
          //当前用户
          //</summary>
-        public SystemUser CurrentUser
+        protected SystemUser CurrentUser
         {
             get
             {
@@ -31,6 +34,15 @@ namespace TLMManager.Controller
                     return principal as SystemUser;
                 }
                 return null;
+            }
+        }
+
+        protected void SetPrincipal(IPrincipal principal)
+        {
+            Thread.CurrentPrincipal = principal;
+            if (HttpContext.Current != null)
+            {
+                HttpContext.Current.User = principal;
             }
         }
 

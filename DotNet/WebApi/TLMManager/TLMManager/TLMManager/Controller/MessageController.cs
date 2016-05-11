@@ -27,6 +27,7 @@ namespace TLMManager.Controller
         /// <param name="fromuser"></param>
         /// <param name="touser"></param>
         /// <param name="content"></param>
+        [HttpPost]
         public void Add(string fromuser, string touser, string content)
         {
             var message = new Message

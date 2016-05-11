@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 
 namespace TLMService
 {
@@ -25,4 +22,5 @@ namespace TLMService
 
         public string Message { get; set; }
     }
+   
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -37,6 +36,12 @@ namespace TLMManager.Service
         {
             conn.Id = Guid.NewGuid();
             _db.Add(conn);
+            return _db.Save() > 0;
+        }
+
+        public bool Update(UserConnection conn)
+        {
+            _db.Update(conn);
             return _db.Save() > 0;
         }
 

@@ -32,113 +32,100 @@
             </li>   
             <li class="mui-table-view-cell">
             	<input id="login" type="button" value="登录" />
-            </li>
-			<li class="mui-table-view-cell">
-                <label>姓名</label><input id="name" type="text" />
-            </li>
-            <li class="mui-table-view-cell">
-                <label>对象</label><input id="target" type="text" />
-            </li>
-            <li class="mui-table-view-cell">
-                <label>信息</label><input id="content" type="text" />
-            </li>
-            <li class="mui-table-view-cell">
-            	<input id="connect" type="button" value="连线" />
-                <input id="submit" type="button" value="发送" />
+                <input id="connect" type="button" value="连接" />
             </li>
 		</ul>
 	</div>
 	<script src="js/jquery-1.10.2.js"></script>
-	<!--<script src="js/jquery.signalR-2.2.0.js"></script>
-	<script src="http://192.168.15.177:8080/signalr/hubs"></script>-->
-    <!--<script src="js/signalr.js"></script>-->
-	<!--<script src="js/socket.js"></script> -->
+	<script src="js/jquery.signalR-2.2.0.js"></script>
+<!--    <script src="http://localhost:8080/signalr/hubs"></script>-->
+	<script src="http://192.168.15.177:8080/signalr/hubs"></script>
+	<script src="js/config.js"></script>
 	<script type="text/javascript">
-	function writeLine(line) {
-	    var messages = $("#list");
-	    messages.append('<li class="mui-table-view-cell">' + getTimeString() + ' ' + line + "</li>");
-	}
-	
-    function getTimeString() {
-        var currentTime = new Date();
-        return currentTime.toTimeString(); 
-    }
 
-	var loginEvent = function() {
-		var empo = document.getElementById("empo");
-		var password = document.getElementById("password");
-		var login = document.getElementById("login");
-		
-		login.addEventListener('click', function(){
-			mui.ajax({
-                type: 'POST',
-                data:  {'username': empo.value, 'password': password.value, 'isRemenberMe': true},
-                url: 'http://localhost:61725/api/account/login',
-                datatype: 'json',
-                async: true,
-                success: function () {
-                    mui.alert("登录成功" , null, null, function () {
-                        mui.openWindow({
-                        	id: 'message',
-                        	url: 'message.html',
-                        	extra : {empo : empo.value}
-                        })
-                    });
-                }
-            });
-		});
-	}
+	mui.ready(function(){
+        var connect = document.getElementById("connect"),
+        login = document.getElementById("login");
 
-    var connect = function () {
-        var name = document.getElementById("name");
-        var target = document.getElementById("target");
-        var content = document.getElementById("content");
-        var connect = document.getElementById('connect');
-        var submit = document.getElementById("submit");
-
-        $.connection.hub.url = "http://192.168.15.177:8080/signalr";
+        $.connection.hub.url = singallocation + "/signalr";
         var chat = $.connection.tLMHub;
-
         $.connection.hub.logging = true;
-
-        chat.client.send = function (fromuser, touser, value) {
-            var line = fromuser + '对' + touser + '说:' + value;
-            writeLine(line);
-        }
 
         $.connection.hub.start()
                 .done(function () {
-                    connect.addEventListener('click', function(){
-                        console.log("connected");
-                        chat.server.connect(name.value);
-                    })
-                    submit.addEventListener('click', function(){
-                        chat.server.send(name.value, target.value, content.value);
-                    })
-
+                    console.log("connected");
                 })
                 .fail(function (error) {
                     console.log(value);
                 });
+
+        connect.addEventListener('click', function () {
+            onConnect(chat);
+        })
+        login.addEventListener('click', function(){
+        	loginEvent();	
+        })
+      	
+        
+    	chat.client.connect = function (connectionId, username) {
+        mui.ajax({
+            type : "POST",
+            url :  managerlocation + "/api/userconnection/add",
+            data : {'connectionId' : connectionId, 'username' : username},
+            success : function (data) {
+                console.log(data);
+            }
+        })
+	    }
+	})
+
+    var loginEvent = function() {
+        var empo = document.getElementById("empo");
+        var password = document.getElementById("password");
+        var loginModel = {
+            username: empo.value,
+            password: password.value,
+            isRemenberMe: true
+        };
+        login.addEventListener('click', function(){
+            mui.ajax({
+                type: 'POST',
+                //data:  {'username': empo.value, 'password': password.value, 'isRemenberMe': true},
+                data : JSON.stringify(loginModel),
+                url:  managerlocation + '/api/account/login',
+                contentType: 'application/json',
+                datatype: 'json',
+                async: true,
+                success: function (data) {
+                    mui.alert("登录成功" , null, null, function () {
+                        mui.openWindow({
+                            id: 'message',
+                            url: 'message.html',
+                            extra : {empo : empo.value}
+                        })
+                    });
+                }
+            });
+        });
     }
 
-	mui.ready(function(){
-        loginEvent();
-        //connect();
-        preloadPages: [{  
-        	url:'list.html',
-        	id: "list",
-        	extras: {
-				
-			},
-			show: {
-				aniShow:'pop-in'//参考官方的效果
-			},
-			waiting: {
-				autoShow: false
-			}
-   	 	}]  
-	})
+    var onConnect = function (chat) {
+        var connectionId,
+            empo = document.getElementById("empo");
+
+        mui.ajax({
+            type: 'get',
+            data: {username : empo.value},
+            url: 'http://localhost:61725/api/userconnection/find',
+            datatype: 'json',
+            async: true,
+            success: function(data){
+                var obj = data;
+                connectionId = obj.ConnectionId
+            }
+        })
+        chat.server.connect(connectionId, empo.value);       
+    }
 	</script>
 </body>
 </html>

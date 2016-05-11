@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TLMManager.Controller;
-using TLMManager.Entity;
 using TLMManager.Service;
 
 namespace TLMManager.Tests
