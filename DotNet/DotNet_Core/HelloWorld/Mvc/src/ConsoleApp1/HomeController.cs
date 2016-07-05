@@ -7,6 +7,7 @@ namespace ConsoleApp1
         [HttpGet("/{name}")]
         public IActionResult Index(string name)
         {
+            ViewData["Name"] = name;
             ViewBag.Name = name;
             return View();
         }
