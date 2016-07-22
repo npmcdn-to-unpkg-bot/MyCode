@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+         <title>HelloWorld</title>                
+    </head>
+    <body> 
+        <script src="../vue.js"/>        
+        <div id="app">
+            {{ message }}
+        </div>
+        <script type="text/javascript">
+            window.onload = function(){
+                new Vue({
+                    el: '#app',
+                    data: {
+                        message: 'Hello Vue.js!'
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>
