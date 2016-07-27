@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>双向绑定</title>    
+        <title>双向绑定</title>
+        <script type="text/javascript" src="../../vue.js"></script>
     </head>
     <body>
-        <script src="../vue.js"/>
+        <div id="app">
+            <p>{{ message }}</p>
+            <!--suppress HtmlUnknownAttribute, HtmlFormInputWithoutLabel -->
+            <input v-model="message"/>
+        </div>
         <script type="text/javascript">
             new Vue({
                 el: '#app',
@@ -14,9 +19,5 @@
                 }
             })
         </script>
-        <div id="app">
-            <p>{{ message }}</p>
-            <input v-model="message"/>
-        </div>
     </body>
 </html>
