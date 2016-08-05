@@ -114,3 +114,11 @@ Mustache标签也可用于HTML特性（Attribute）内
 #### JavaScript 表达式 ####
 {{ number + 1 }}
 
+## Class与Style绑定 ##
+数据绑定一个常见需求是操作元素的 class 列表和它的内联样式。因为它们都是 attribute，我们可以用 v-bind 处理它们：只需要计算出表达式最终的字符串。
+
+### 绑定 HTML Class ###
+尽管可以用 Mustache 标签绑定 class，比如 class="{{ className }}"，但是我们不推荐这种写法和 v-bind:class 混用。两者只能选其一！
+
+
+#### 对象语法 ####
