@@ -122,3 +122,6 @@ Mustache标签也可用于HTML特性（Attribute）内
 
 
 #### 对象语法 ####
+
+#### 自动添加前缀 ####
+当`v-bind:style`使用需要厂商前缀的CSS属性时，如`transform`，Vue.js会自动侦测并添加相应的前缀。
