@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node EventEmitter/main.js"
+    "start": "node Stream(流)/main.js"
   }
 }
