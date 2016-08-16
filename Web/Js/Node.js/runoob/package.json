@@ -1,0 +1,8 @@
+{
+  "name": "runoob",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node 事件循环/main.js"
+  }
+}
