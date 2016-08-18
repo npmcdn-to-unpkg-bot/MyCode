@@ -1,0 +1,8 @@
+{
+  "name": "alsotang_lessons",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node lession1/app.js"
+  }
+}
