@@ -26,3 +26,8 @@ EventEmitter 对象如果在实例化时发生错误，会触发 'error' 事件�
 	setTimeout(function() { 
 		event.emit('some_event'); 
 	}, 1000);
+执行结果如下：
+运行这段代码，1 秒后控制台输出了 'some_event 事件触发'。其原理是 event 对象注册了事件 some_event 的一个监听器，然后我们通过 setTimeout 在 1000 毫秒以后向 event 对象发送事件 some_event，此时会调用some_event 的监听器。
+
+EventEmitter 的每个事件由一个事件名和若干个参数组成，事件名是一个字符串，通常表达一定的语义。对于每个事件，EventEmitter 支持 若干个事件监听器。当事件触发时，注册到这个事件的事件监听器被依次调用，事件参数作为回调函数参数传递。
+

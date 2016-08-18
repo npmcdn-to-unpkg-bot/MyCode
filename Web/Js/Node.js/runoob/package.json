@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node 事件循环/main.js"
+    "start": "node Stream(流)/main.js"
   }
 }
