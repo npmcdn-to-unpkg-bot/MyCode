@@ -315,7 +315,7 @@
       <workItem from="1471312383682" duration="7262000" />
       <workItem from="1471395460613" duration="5828000" />
       <workItem from="1471482211730" duration="23000" />
-      <workItem from="1471482358486" duration="9000" />
+      <workItem from="1471482358486" duration="109000" />
     </task>
     <task id="LOCAL-00001" summary="web/js/node.js add 事件循环、EventEmitter and 回调函数">
       <created>1471339912232</created>
@@ -328,7 +328,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13122000" />
+    <option name="totallyTimeSpent" value="13222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
