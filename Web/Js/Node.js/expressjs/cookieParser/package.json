@@ -1,0 +1,11 @@
+{
+  "name": "logger",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": ".logger.js"
+  },
+  "dependencies": {
+    "connect": "^3.4.1"
+  }
+}
