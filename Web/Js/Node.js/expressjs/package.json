@@ -1,0 +1,10 @@
+{
+  "name": "expressjs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": ".logger.js"
+  },
+  "dependencies": {
+  }
+}
